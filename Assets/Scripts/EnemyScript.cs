@@ -9,6 +9,8 @@ public class EnemyScript : MonoBehaviour
     public float maxVelocity;
     private int direction = 1;
     public LayerMask collisionLayer;
+    public float raylength;
+    public float verticalOffset;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,10 +25,21 @@ public class EnemyScript : MonoBehaviour
         {
             rb2D.velocity = rb2D.velocity.normalized * maxVelocity * Time.deltaTime;
         }
-        RaycastHit2D hit = Physics2D.Raycast(transform.position * Vector2.right * direction * 0.55f, Vector2.right * direction, 0.1f, collisionLayer);
-        if(hit.collider != null)
+        for (int i = -1; i < 2; i++)
         {
-            direction *= -1;
+            Vector3 origin = transform.position + Vector3.up * i * verticalOffset;
+            origin += Vector3.right * direction * 0.55f;
+            Vector3 Raydirection = Vector2.right * direction;
+            RaycastHit2D hit = Physics2D.Raycast(origin,
+                Raydirection, raylength, collisionLayer);
+            Debug.DrawRay(origin, Raydirection * raylength, Color.cyan);
+            if (hit.collider != null)
+            {
+                print("Hit wall");
+                direction *= -1;
+            }
         }
+        
+        
     }
 }

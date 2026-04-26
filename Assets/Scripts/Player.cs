@@ -101,9 +101,10 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Traps")
+        if(collision.gameObject.tag == "Traps" || collision.gameObject.tag == "enemy")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        
     }
 }
