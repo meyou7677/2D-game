@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Arrow
   - Traps
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Arrow
   - Button
   - enemy
-  - 
+  - enemytrigger
   - 
   - 
   - 

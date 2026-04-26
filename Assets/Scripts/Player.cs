@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
             }
             arrow.transform.position = shootpoint.transform.position;
             Vector2 direction = shootpoint.transform.GetChild(0).position - transform.position;
-            arrow.GetComponent<Rigidbody2D>().velocity = direction.normalized * ArrowSpeed;
+            arrow.GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * ArrowSpeed;
             arrow.GetComponent<Rigidbody2D>().isKinematic = false;
             arrow.GetComponent<Rigidbody2D>().angularVelocity = 0;
             arrow.transform.localRotation = shootpoint.transform.localRotation;

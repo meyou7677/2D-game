@@ -21,9 +21,9 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         rb2D.AddForce(Vector2.right * speed * direction);
-        if(rb2D.velocity.magnitude > maxVelocity)
+        if(rb2D.linearVelocity.magnitude > maxVelocity)
         {
-            rb2D.velocity = rb2D.velocity.normalized * maxVelocity * Time.deltaTime;
+            rb2D.linearVelocity = rb2D.linearVelocity.normalized * maxVelocity * Time.deltaTime;
         }
         for (int i = -1; i < 2; i++)
         {
