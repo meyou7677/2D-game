@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public float jumpheight;
     public KeyCode JumpButton;
     public KeyCode DeleteArrowButton;
-    public float distance;
+    public float RayLength;
     private int GroundLayer;
     private GameObject shootpoint;
     private GameObject arrowprefab;
@@ -51,11 +51,15 @@ public class Player : MonoBehaviour
     {
         float movement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         m_rb.AddForce(new Vector2(movement, 0), ForceMode2D.Impulse);
-        var hit = Physics2D.Raycast(transform.position, Vector3.down, distance, GroundLayer);
+        var hit = Physics2D.Raycast(transform.position, Vector3.down, RayLength, GroundLayer);
         Vector2 LeftRaycast = transform.position - new Vector3(0.5f, 0);
         Vector2 RightRaycast = transform.position + new Vector3(0.5f, 0);
-        var hit2 = Physics2D.Raycast(LeftRaycast, Vector3.down, distance, GroundLayer);
-        var hit3 = Physics2D.Raycast(RightRaycast, Vector3.down, distance, GroundLayer);
+        var hit2 = Physics2D.Raycast(LeftRaycast, Vector3.down, RayLength, GroundLayer);
+        var hit3 = Physics2D.Raycast(RightRaycast, Vector3.down, RayLength, GroundLayer);
+
+        Debug.DrawRay(transform.position, Vector3.down * RayLength);
+        Debug.DrawRay(RightRaycast, Vector3.down * RayLength);
+        Debug.DrawRay(RightRaycast, Vector3.down * RayLength);
         if (hit.collider != null || hit2.collider != null|| hit3.collider != null)
         {
             if (Input.GetKeyDown(JumpButton))
