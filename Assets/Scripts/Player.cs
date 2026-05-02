@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public KeyCode JumpButton;
     public KeyCode DeleteArrowButton;
     public float RayLength;
+    public float rayoffset;
     private int GroundLayer;
     private GameObject shootpoint;
     private GameObject arrowprefab;
@@ -19,10 +20,13 @@ public class Player : MonoBehaviour
     private List<GameObject> m_ArrowList = new List<GameObject>();
     public int Arrowcount;
     private int ArrowIndex = 0;
+    private SpriteRenderer m_spriterenderer;
+    
     // Start is called before the first frame update
     void Start()
     {
         m_rb = GetComponent<Rigidbody2D>();
+        m_spriterenderer = GetComponent<SpriteRenderer>();
         GroundLayer = LayerMask.GetMask("Ground");
         shootpoint = transform.Find("Shootpoint").gameObject;
         arrowprefab = Resources.Load<GameObject>("Prefabs/Arrow");
@@ -50,10 +54,11 @@ public class Player : MonoBehaviour
     private void movement()
     {
         float movement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        m_spriterenderer.flipX = movement < 0;
         m_rb.AddForce(new Vector2(movement, 0), ForceMode2D.Impulse);
         var hit = Physics2D.Raycast(transform.position, Vector3.down, RayLength, GroundLayer);
-        Vector2 LeftRaycast = transform.position - new Vector3(0.5f, 0);
-        Vector2 RightRaycast = transform.position + new Vector3(0.5f, 0);
+        Vector2 LeftRaycast = transform.position - new Vector3(rayoffset, 0);
+        Vector2 RightRaycast = transform.position + new Vector3(rayoffset, 0);
         var hit2 = Physics2D.Raycast(LeftRaycast, Vector3.down, RayLength, GroundLayer);
         var hit3 = Physics2D.Raycast(RightRaycast, Vector3.down, RayLength, GroundLayer);
 

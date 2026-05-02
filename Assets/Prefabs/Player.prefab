@@ -135,11 +135,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f57b024b195a5b4b86564181d739bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 17
   jumpheight: 15
   JumpButton: 330
   DeleteArrowButton: 332
   RayLength: 0.8
+  rayoffset: 0.4
   shootbutton: 335
   ArrowSpeed: 15
   Arrowcount: 5

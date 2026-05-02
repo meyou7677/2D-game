@@ -781,6 +781,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5927789215633972810, guid: 223d5b6a914439b4b930a0ae5b4c4c59, type: 3}
+      propertyPath: rayoffset
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927789215633972810, guid: 223d5b6a914439b4b930a0ae5b4c4c59, type: 3}
       propertyPath: shootbutton
       value: 335
       objectReference: {fileID: 0}
@@ -828,6 +832,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6257523426293724324, guid: e620265f7c825d84fa042fd9c153054e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: d986fecdb1b17e349a015229f9a49d28, type: 2}
     - target: {fileID: 6257523426293724324, guid: e620265f7c825d84fa042fd9c153054e, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size
       value: 4
@@ -4212,6 +4220,10 @@ PrefabInstance:
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[6].Array.data[13].Y
       value: -100000000
       objectReference: {fileID: 0}
+    - target: {fileID: 6257523426293724325, guid: e620265f7c825d84fa042fd9c153054e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: d986fecdb1b17e349a015229f9a49d28, type: 2}
     - target: {fileID: 6257523426293724327, guid: e620265f7c825d84fa042fd9c153054e, type: 3}
       propertyPath: m_Size.x
       value: 71
