@@ -21,7 +21,11 @@ public class Player : MonoBehaviour
     public int Arrowcount;
     private int ArrowIndex = 0;
     private SpriteRenderer m_spriterenderer;
-    
+    private Animator m_animator;
+    private bool isRun = false;
+    private bool isRunprevious= false;
+    public Sprite stopsprite;
+    public float stoptime;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +44,8 @@ public class Player : MonoBehaviour
             arrow.SetActive(false);
             m_ArrowList.Add(arrow);
         }
+        m_animator = GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
@@ -53,7 +59,8 @@ public class Player : MonoBehaviour
 
     private void movement()
     {
-        float movement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        float input = Input.GetAxisRaw("Horizontal");
+        float movement = input * speed * Time.deltaTime;
         m_spriterenderer.flipX = movement < 0;
         m_rb.AddForce(new Vector2(movement, 0), ForceMode2D.Impulse);
         var hit = Physics2D.Raycast(transform.position, Vector3.down, RayLength, GroundLayer);
@@ -72,7 +79,14 @@ public class Player : MonoBehaviour
                 m_rb.AddForce(new Vector2(0, jumpheight), ForceMode2D.Impulse);
             }
         }
-        
+        isRun = Mathf.Abs(m_rb.linearVelocityX) > 0.1 || Mathf.Abs(input) > 0;
+        if(!isRun && isRunprevious)
+        {
+            StartCoroutine(toggleanimator());
+        }
+        isRunprevious = isRun;
+        m_animator.SetBool("IsRun", isRun);
+
     }
 
     private void Shoot()
@@ -116,4 +130,12 @@ public class Player : MonoBehaviour
         }
         
     }
-}
+
+    private IEnumerator toggleanimator()
+    {
+        m_animator.enabled = false;
+        m_spriterenderer.sprite = stopsprite;
+        yield return new WaitForSeconds(stoptime);
+        m_animator.enabled = true;
+    }
+} 
