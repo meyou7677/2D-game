@@ -25,7 +25,7 @@ public class Arrow : MonoBehaviour
         if(IsInMask(collision.gameObject))
         {
             
-            rb.isKinematic = true;
+            rb.bodyType = RigidbodyType2D.Kinematic;
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = 0;
             

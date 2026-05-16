@@ -11,10 +11,14 @@ public class EnemyScript : MonoBehaviour
     public LayerMask collisionLayer;
     public float raylength;
     public float verticalOffset;
+    private BoxCollider2D m_Collider;
+    private SpriteRenderer m_SpriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
+        m_SpriteRenderer = GetComponent<SpriteRenderer>();
         rb2D = GetComponent<Rigidbody2D>();
+        m_Collider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -28,17 +32,18 @@ public class EnemyScript : MonoBehaviour
         for (int i = -1; i < 2; i++)
         {
             Vector3 origin = transform.position + Vector3.up * i * verticalOffset;
-            origin += Vector3.right * direction * 0.55f;
+            origin += Vector3.right * direction * m_Collider.size.x / 2;
+            origin += Vector3.right * direction * 0.01f;
             Vector3 Raydirection = Vector2.right * direction;
             RaycastHit2D hit = Physics2D.Raycast(origin,
                 Raydirection, raylength, collisionLayer);
             Debug.DrawRay(origin, Raydirection * raylength, Color.cyan);
             if (hit.collider != null)
             {
-                print("Hit wall");
                 direction *= -1;
             }
         }
+        m_SpriteRenderer.flipX = direction < 0;
         
         
     }
