@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     private bool isRunprevious= false;
     public Sprite stopsprite;
     public float stoptime;
+    public bool canmove = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,8 +52,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement();
-        Shoot();
+        if (canmove)
+        {
+            movement();
+            Shoot();
+        }
+        
+        
         
         
     }
@@ -155,4 +161,6 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(stoptime);
         m_animator.enabled = true;
     }
+
+
 } 

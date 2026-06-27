@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 9091748952946440462}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,6 +88,7 @@ MonoBehaviour:
   Arrowcount: 5
   stopsprite: {fileID: 4445329437732904335, guid: a8b5336af06124c46a70eab3096003c7, type: 3}
   stoptime: 0.4
+  canmove: 0
 --- !u!61 &5927789215633972814
 BoxCollider2D:
   m_ObjectHideFlags: 0

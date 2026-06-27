@@ -13,6 +13,7 @@ public class EnemyScript : MonoBehaviour
     public float verticalOffset;
     private BoxCollider2D m_Collider;
     private SpriteRenderer m_SpriteRenderer;
+    public bool canmove;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +25,18 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (canmove)
+        {
+            Enemymove();
+        }
+        
+        
+    }
+
+    private void Enemymove()
+    {
         rb2D.AddForce(Vector2.right * speed * direction);
-        if(rb2D.linearVelocity.magnitude > maxVelocity)
+        if (rb2D.linearVelocity.magnitude > maxVelocity)
         {
             rb2D.linearVelocity = rb2D.linearVelocity.normalized * maxVelocity * Time.deltaTime;
         }
@@ -44,7 +55,5 @@ public class EnemyScript : MonoBehaviour
             }
         }
         m_SpriteRenderer.flipX = direction < 0;
-        
-        
     }
 }
