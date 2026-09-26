@@ -54,7 +54,6 @@ public class turtorialScene : MonoBehaviour
             textMeshProUGUI.text = dialogue[index];
             yield return waitforpress();
             index++;
-            print(index);
         }
 
         textMeshProUGUI.text = "";

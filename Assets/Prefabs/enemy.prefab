@@ -239,6 +239,7 @@ MonoBehaviour:
     m_Bits: 264
   raylength: 0.4
   verticalOffset: 0.3
+  canmove: 1
 --- !u!50 &5155384281623588639
 Rigidbody2D:
   serializedVersion: 5

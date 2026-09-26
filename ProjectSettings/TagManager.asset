@@ -8,6 +8,7 @@ TagManager:
   - Traps
   - enemy
   - MovingPlatform
+  - Button
   layers:
   - Default
   - TransparentFX
@@ -47,6 +48,12 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 2563045351
+    locked: 0
+  - name: UI
+    uniqueID: 3965430937
     locked: 0
   m_RenderingLayers:
   - Default
