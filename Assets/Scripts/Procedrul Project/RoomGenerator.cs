@@ -219,7 +219,7 @@ public class RoomGenerator : MonoBehaviour
     public Vector2 ChooseTile(RectInt room, bool[,] isoccupied)
     {
         Vector2 position = new Vector2();
-        int repeat = 30;
+        int repeat = 50;
         do
         {
             int x = UnityEngine.Random.Range(room.x + 1, room.x + room.width - 1);

@@ -6,4 +6,5 @@ public class Item : ScriptableObject
     public string itemname;
     public Sprite icon;
     public float price;
+
 }

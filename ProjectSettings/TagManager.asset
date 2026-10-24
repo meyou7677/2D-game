@@ -9,6 +9,7 @@ TagManager:
   - enemy
   - MovingPlatform
   - Button
+  - ChestSlot
   layers:
   - Default
   - TransparentFX
