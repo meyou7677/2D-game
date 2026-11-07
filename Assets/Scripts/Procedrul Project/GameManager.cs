@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public int areaincrease;
     private bool[,] occupiedTile;
     private GameObject exitinstance;
+    private Inventory inventory;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,7 +43,10 @@ public class GameManager : MonoBehaviour
         numberofskulls = PlayerPrefs.GetInt("numberofskulls", numberofskulls);
         numberofchests = PlayerPrefs.GetInt("numberofchests", numberofchests);
         levelnumber = PlayerPrefs.GetInt("levelnumber", 1);
+        
         populatelevels();
+        int coins = PlayerPrefs.GetInt("coins", 0);
+        inventory.addcoins(coins);
     }
 
     // Update is called once per frame
@@ -98,6 +102,7 @@ public class GameManager : MonoBehaviour
                     NumberOfChests++;
                 }
                 PlayerPrefs.SetInt("numberofchests", NumberOfChests);
+                PlayerPrefs.SetInt("coins", inventory.numberofcoins());
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
             
@@ -109,6 +114,7 @@ public class GameManager : MonoBehaviour
     {
         List<RectInt> rooms = roomGenerator.getrooms();
         player = FindAnyObjectByType<PlayerMovement>();
+        inventory = player.GetComponent<Inventory>();
         placeobjects(rooms, numberofbuttons, button, buttons);
 
         placeobjects(rooms, numberofskulls, Skull, skulls);

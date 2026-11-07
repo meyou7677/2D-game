@@ -44,14 +44,17 @@ public class Chests : MonoBehaviour
         }
         for(int i = 0; i < itemsrolled.Count; i++)
         {
+            LootItem item = itemsrolled[i];
             foreach(Transform t in ChestPanel.transform)
             {
                 if(t.GetComponent<Image>().sprite == null)
                 {
-                    t.Find("Icon").GetComponent<Image>().sprite = itemsrolled[i].item.icon;
+                    t.Find("Icon").GetComponent<Image>().sprite = item.item.icon;
                     t.Find("Icon").GetComponent<Button>().onClick.AddListener(() => {
-                        player.GetComponent<Inventory>().addcoins(itemsrolled[i].quantity);
-
+                        player.GetComponent<Inventory>().addcoins(item.quantity);
+                        t.Find("Icon").gameObject.SetActive(false);
+                        t.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                        itemsrolled.Remove(item);
                     });
                     t.GetComponentInChildren<TextMeshProUGUI>().text = itemsrolled[i].quantity.ToString();
                     break;

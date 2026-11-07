@@ -6,11 +6,13 @@ public class PlayerMovement : MonoBehaviour
     public float movespeed;
     private Rigidbody2D rb;
     private Vector2 movement;
+    private CanvasScript menu;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        menu = GameObject.Find("Menus").GetComponent<CanvasScript>();
     }
 
     // Update is called once per frame
@@ -23,6 +25,10 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ResetRun();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            menu.Setactive(!menu.isactive());
         }
     }
 
