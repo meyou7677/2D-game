@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     private bool[,] occupiedTile;
     private GameObject exitinstance;
     private Inventory inventory;
+    public GameObject leveltext;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -52,13 +54,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        leveltext.GetComponent<TextMeshProUGUI>().text = "Level " + levelnumber.ToString();
         for(int i = 0; i < buttons.Count; i++)
         {
             float distance = Vector3.Magnitude(player.transform.position - buttons[i].transform.position);
             if(distance < 1)
             {
                 buttonsremove.Add(buttons[i]);
-
                 
             }
         }

@@ -53,4 +53,49 @@ public class InventoryTest
         Assert.AreEqual(10, myapples.Count);
     }
 
+    [Test]
+    public void testoverfill()
+    {
+        Item Mangoes = ScriptableObject.CreateInstance<Item>();
+        Mangoes.itemname = "mangoes";
+        inventory.AddItem(Mangoes, 5);
+        var mymangoes = inventory.getallitems(Mangoes.itemname);
+        Assert.AreEqual (5, mymangoes.Count);
+        inventory.AddItem(Mangoes, 15);
+        mymangoes = inventory.getallitems(Mangoes.itemname);
+        Assert.AreEqual(20, mymangoes.Count);
+    }
+
+    [Test]
+    public void testremoveitems()
+    {
+        Item Mangoes = ScriptableObject.CreateInstance<Item>();
+        Mangoes.itemname = "mangoes";
+        Item apples = ScriptableObject.CreateInstance<Item>();
+        var myapples = inventory.getallitems(apples.itemname);
+        apples.itemname = "apples";
+        inventory.AddItem(apples, 3);
+        inventory.AddItem(Mangoes, 5);
+        inventory.removeitem("mangoes");
+        var mymangoes = inventory.getallitems(Mangoes.itemname);
+        Assert.AreEqual(4, mymangoes.Count);
+
+    }
+
+    [Test]
+    public void testremoveallitems()
+    {
+
+        Item Mangoes = ScriptableObject.CreateInstance<Item>();
+        Mangoes.itemname = "mangoes";
+        Item apples = ScriptableObject.CreateInstance<Item>();
+        apples.itemname = "apples";
+        inventory.AddItem(apples, 40);
+        inventory.AddItem(Mangoes, 1);
+        inventory.removeitem("mangoes");
+        inventory.AddItem(Mangoes, 5);
+        var mymangoes = inventory.getallitems(Mangoes.itemname);
+        Assert.AreEqual(5, mymangoes.Count);
+    }
+
 }

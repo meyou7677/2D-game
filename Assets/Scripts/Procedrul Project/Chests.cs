@@ -21,10 +21,12 @@ public class Chests : MonoBehaviour
     private List<LootItem> itemsrolled = new List<LootItem>();
     private Canvas canvas;
     private GameObject player;
+    private Inventory inventory;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
         canvas = GetComponentInChildren<Canvas>();
         canvas.enabled = false;
         player = GameObject.FindGameObjectWithTag("Player");
@@ -47,11 +49,19 @@ public class Chests : MonoBehaviour
             LootItem item = itemsrolled[i];
             foreach(Transform t in ChestPanel.transform)
             {
-                if(t.GetComponent<Image>().sprite == null)
+                var icon = t.Find("Icon");
+                if(icon.GetComponent<Image>().sprite == null)
                 {
-                    t.Find("Icon").GetComponent<Image>().sprite = item.item.icon;
-                    t.Find("Icon").GetComponent<Button>().onClick.AddListener(() => {
-                        player.GetComponent<Inventory>().addcoins(item.quantity);
+                    icon.GetComponent<Image>().sprite = item.item.icon;
+                    icon.GetComponent<Button>().onClick.AddListener(() => {
+                        if(item.item.itemname == "Coins")
+                        {
+                            inventory.addcoins(item.quantity);
+                        }
+                        else
+                        {
+                            inventory.AddItem(item.item, item.quantity);
+                        }
                         t.Find("Icon").gameObject.SetActive(false);
                         t.GetComponentInChildren<TextMeshProUGUI>().text = "";
                         itemsrolled.Remove(item);
@@ -60,12 +70,12 @@ public class Chests : MonoBehaviour
                     break;
                 }
             }
-            foreach (Transform t in ChestPanel.transform)
+        }
+        foreach (Transform t in ChestPanel.transform)
+        {
+            if (t.Find("Icon").GetComponent<Image>().sprite == null)
             {
-                if (t.GetComponent<Image>().sprite == null)
-                {
-                    //t.Find("Icon").GetComponent<Image>().color = Color.clear;
-                }
+                t.Find("Icon").gameObject.SetActive(false);
             }
         }
     }

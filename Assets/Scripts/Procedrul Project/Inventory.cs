@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventorySlot
@@ -11,6 +12,7 @@ public class Inventory : MonoBehaviour
 {
     private int coins;
     const int MAX_ITEMS_PER_SLOT = 10;
+    public const int NUMBER_OF_SLOTS = 5;
     private List<InventorySlot> slots = new List<InventorySlot>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,7 +23,7 @@ public class Inventory : MonoBehaviour
 
     public void initialise()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < NUMBER_OF_SLOTS; i++)
         {
             slots.Add(new InventorySlot());
         }
@@ -46,7 +48,6 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(Item item, int quantity)
     {
-        
         InventorySlot slot = null;
         for (int i = 0; i < slots.Count; i++)
         {
@@ -80,7 +81,46 @@ public class Inventory : MonoBehaviour
             slot.item = item;
             if (quantity > spacefor)
             {
-                slot.quantity += spacefor;
+                int itemsleft = quantity;
+                int spaceinnewslot = 0;
+                for (int i = 0; i < slots.Count; i++)
+                {
+                    if(slots[i].item == null && slots[i].quantity == 0)
+                    {
+                        slots[i].item = item;
+                        if(itemsleft > MAX_ITEMS_PER_SLOT)
+                        {
+                            slots[i].quantity = MAX_ITEMS_PER_SLOT;
+                            itemsleft -= MAX_ITEMS_PER_SLOT;
+                            continue;
+                        }
+                        else
+                        {
+                            slots[i].quantity = itemsleft;
+                            itemsleft = 0;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (slots[i].item.itemname == item.itemname)
+                        {
+                            spaceinnewslot = MAX_ITEMS_PER_SLOT - slots[i].quantity;
+                            if(itemsleft > spaceinnewslot)
+                            {
+                                slots[i].quantity = MAX_ITEMS_PER_SLOT;
+                                itemsleft -= spaceinnewslot;
+                            }
+                            else
+                            {
+                                slots[i].quantity += itemsleft;
+                                itemsleft = 0;
+                                //Break out of loop
+                                break;
+                            }
+                        }
+                    }
+                }
             }
             else
             {
@@ -104,6 +144,21 @@ public class Inventory : MonoBehaviour
             }
         }
         return result;
+    }
+
+    public void removeitem(string itemname)
+    {
+        for(int i = 0; i < slots.Count;i++)
+        {
+            if (slots[i].item != null && slots[i].item.itemname == itemname)
+            {
+                slots[i].quantity -= 1;
+                if(slots[i].quantity == 0)
+                {
+                    slots[i].item = null;
+                }
+            }
+        }
     }
 
 }
